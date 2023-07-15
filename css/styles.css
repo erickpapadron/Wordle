@@ -1,0 +1,51 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+header{
+    text-align: center;
+}
+
+h1{
+    font-size: 40pt;
+}
+
+.tablero{
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 0fr);
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.celda{
+    border: 2px solid gray;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    margin: 2px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 30pt;
+}
+
+.celda:hover{
+    cursor: pointer;
+}
+
+@-webkit-keyframes move{
+    0% {-webkit-transform: translateX(-5px);}
+    50% {-webkit-transform: translateX(0px);}
+    100% {-webkit-transform: translateX(5px);}
+}
+
+@-webkit-keyframes shake{
+    0% {-webkit-transform: rotateZ(-5deg);}
+    50% {-webkit-transform: rotateZ(0deg) scale(.8);}
+    100% {-webkit-transform: rotateZ(5deg);}
+}

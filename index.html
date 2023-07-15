@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/scripts.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worldle</title>
+</head>
+<body onload="inicializaGame()">
+    <header>
+        <h1>Wordle</h1>
+    </header>
+    <section>
+        <div class="tablero">
+            <div class="celda row0" id="00" onclick="selectTile('00')"></div>
+            <div class="celda row0" id="01" onclick="selectTile('01')"></div>
+            <div class="celda row0" id="02" onclick="selectTile('02')"></div>
+            <div class="celda row0" id="03" onclick="selectTile('03')"></div>
+            <div class="celda row0" id="04" onclick="selectTile('04')"></div>
+            <div class="celda row1" id="10" onclick="selectTile('10')"></div>
+            <div class="celda row1" id="11" onclick="selectTile('11')"></div>
+            <div class="celda row1" id="12" onclick="selectTile('12')"></div>
+            <div class="celda row1" id="13" onclick="selectTile('13')"></div>
+            <div class="celda row1" id="14" onclick="selectTile('14')"></div>
+            <div class="celda row2" id="20" onclick="selectTile('20')"></div>
+            <div class="celda row2" id="21" onclick="selectTile('21')"></div>
+            <div class="celda row2" id="22" onclick="selectTile('22')"></div>
+            <div class="celda row2" id="23" onclick="selectTile('23')"></div>
+            <div class="celda row2" id="24" onclick="selectTile('24')"></div>
+            <div class="celda row3" id="30" onclick="selectTile('30')"></div>
+            <div class="celda row3" id="31" onclick="selectTile('31')"></div>
+            <div class="celda row3" id="32" onclick="selectTile('32')"></div>
+            <div class="celda row3" id="33" onclick="selectTile('33')"></div>
+            <div class="celda row3" id="34" onclick="selectTile('34')"></div>
+            <div class="celda row4" id="40" onclick="selectTile('40')"></div>
+            <div class="celda row4" id="41" onclick="selectTile('41')"></div>
+            <div class="celda row4" id="42" onclick="selectTile('42')"></div>
+            <div class="celda row4" id="43" onclick="selectTile('43')"></div>
+            <div class="celda row4" id="44" onclick="selectTile('44')"></div>
+            <div class="celda row5" id="50" onclick="selectTile('50')"></div>
+            <div class="celda row5" id="51" onclick="selectTile('51')"></div>
+            <div class="celda row5" id="52" onclick="selectTile('52')"></div>
+            <div class="celda row5" id="53" onclick="selectTile('53')"></div>
+            <div class="celda row5" id="54" onclick="selectTile('54')"></div>
+        </div>
+    </section>
+    <footer>
+    </footer>
+</body>
+</html>
