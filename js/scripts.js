@@ -209,15 +209,26 @@ function checkGuessing()
         }
 
         //Pintamos cada una de las celdas según el color que corresponda en el arreglo
-        for(var i = 0; i<=4; i++)
-        {
-            elements[i].style.backgroundColor = colores[i];
-        }
+        for (var i = 0; i <= 4; i++) {
+            (function (index) {
+              // Timeout para que se ejecute cada animación y se aplique
+              setTimeout(function () {
+                elements[index].style.animation = "revela 0.5s linear";
+                //Esperamos un momento para aplicar el color
+                setTimeout(function () {
+                    elements[index].style.backgroundColor = colores[index];
+                },400);
+                
+              },i* 500); // Multiplica i por 1000 para obtener segundos de espera crecientes
+            })(i);
+          }
+          
+          
 
         //Adivinó la palabra
         if(guessWord == guessing.join(""))
         {
-            alert("Ganaste");
+            console.log("Ganaste");
         }else{
             //Si es a 4 y además no adivinó la palabra, entonces pierde
             if(currentRow == 5)
