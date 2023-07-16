@@ -6,9 +6,21 @@ body{
 header{
     text-align: center;
 }
+h1,h2{
+    margin: 0;
+}
 
 h1{
     font-size: 40pt;
+    margin-top: 30px;
+}
+h2{
+    font-size: 13pt;
+    margin-bottom: 30px;
+}
+h2::before{
+    content: "By ";
+    font-size: 18pt;
 }
 
 .tablero{
@@ -53,4 +65,47 @@ h1{
 @-webkit-keyframes revela{
     0%{-webkit-transform: rotateX(0deg);}
     100%{-webkit-transform: rotateX(360deg);}
+}
+
+
+
+/* Parte del teclado virtual */
+.teclado{
+    margin: 0 auto;
+    width: fit-content;
+    border-radius: 5px;
+    padding-top: 60px;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row .tecla{
+    background-color: gray;
+    border: 2px solid gray;
+    color: white;
+    width: 50px;
+    height: 60px;
+    margin: 3px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20pt;
+}
+
+.row .tecla:hover{
+    cursor: pointer;
+}
+
+#Backspace, #Enter{
+    width: 70px;
+}
+
+#Backspace span, #Enter span{
+    font-size:25pt;
 }
