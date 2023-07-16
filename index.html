@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="js/scripts.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
 <body onload="inicializaGame()">
     <header>
         <h1>Wordle</h1>
+        <h2>@erickpapadron</h2>
     </header>
     <section>
         <div class="tablero">
@@ -43,6 +45,46 @@
             <div class="celda row5" id="52" onclick="selectTile('52')"></div>
             <div class="celda row5" id="53" onclick="selectTile('53')"></div>
             <div class="celda row5" id="54" onclick="selectTile('54')"></div>
+        </div>
+    </section>
+    <section class="teclado">
+        <div class="row">
+            <div class="tecla" id="Q" onclick="agregaLetra('Q')">Q</div>
+            <div class="tecla" id="W" onclick="agregaLetra('W')">W</div>
+            <div class="tecla" id="E" onclick="agregaLetra('E')">E</div>
+            <div class="tecla" id="R" onclick="agregaLetra('R')">R</div>
+            <div class="tecla" id="T" onclick="agregaLetra('T')">T</div>
+            <div class="tecla" id="Y" onclick="agregaLetra('Y')">Y</div>
+            <div class="tecla" id="U" onclick="agregaLetra('U')">U</div>
+            <div class="tecla" id="I" onclick="agregaLetra('I')">I</div>
+            <div class="tecla" id="O" onclick="agregaLetra('O')">O</div>
+            <div class="tecla" id="P" onclick="agregaLetra('P')">P</div>
+        </div>
+        <div class="row">
+            <div class="tecla" id="A" onclick="agregaLetra('A')">A</div>
+            <div class="tecla" id="S" onclick="agregaLetra('S')">S</div>
+            <div class="tecla" id="D" onclick="agregaLetra('D')">D</div>
+            <div class="tecla" id="F" onclick="agregaLetra('F')">F</div>
+            <div class="tecla" id="G" onclick="agregaLetra('G')">G</div>
+            <div class="tecla" id="H" onclick="agregaLetra('H')">H</div>
+            <div class="tecla" id="J" onclick="agregaLetra('J')">J</div>
+            <div class="tecla" id="K" onclick="agregaLetra('K')">K</div>
+            <div class="tecla" id="L" onclick="agregaLetra('L')">L</div>
+        </div>
+        <div class="row">
+            <div class="tecla" id="Enter" onclick="checkGuessing()">
+                <span class="material-symbols-outlined">keyboard_return</span>
+            </div>
+            <div class="tecla" id="Z" onclick="agregaLetra('Z')">Z</div>
+            <div class="tecla" id="X" onclick="agregaLetra('X')">X</div>
+            <div class="tecla" id="C" onclick="agregaLetra('C')">C</div>
+            <div class="tecla" id="V" onclick="agregaLetra('V')">V</div>
+            <div class="tecla" id="B" onclick="agregaLetra('B')">B</div>
+            <div class="tecla" id="N" onclick="agregaLetra('N')">N</div>
+            <div class="tecla" id="M" onclick="agregaLetra('M')">M</div>
+            <div class="tecla" id="Backspace" onclick="borraLetra()">
+                <span class="material-symbols-outlined">backspace</span>
+            </div>
         </div>
     </section>
     <footer>

@@ -6,17 +6,22 @@ var guessWord = "ARBOL";
 var words = [];
 var wordsSet = new Set();
 let mapGuessWord = new Map();
+var teclado = new Map();
 
 
 // Inicializa la partida
 function inicializaGame()
 {
+    //Creamos una Tecla
     guardaPalabras();
+    initKeyboard();
     selectTile(currSelectedTile);
 
     //Elige una palabra aleatoria del arreglo, numero entre 0 y el tamaño del arreglo
     var random = Math.floor(Math.random() * words.length);
     guessWord = words[random];
+
+    console.log(guessWord);
 
     //Inicializamos el mapa con la palabra a adivinar
     for(var i = 0; i < guessWord.length; i++)
@@ -30,7 +35,6 @@ function inicializaGame()
             mapGuessWord.set(guessWord[i], 1);
         }
     }
-    console.log(guessWord);
 }
 
 //Guardamos el set de palabras en un arreglo y en un set (desde el arvhivo txt)
@@ -100,20 +104,18 @@ document.addEventListener('keydown', function(event) {
     var teclaPresionada = event.key;
     var letrasExpresion = /^[a-zA-Z]$/;
     if(letrasExpresion.test(teclaPresionada)){
-        console.log("Presionaste una letra " + teclaPresionada);
+        // console.log("Presionaste una letra " + teclaPresionada);
         agregaLetra(teclaPresionada);
     }
     else if(teclaPresionada === 'Backspace'){
-        console.log("Presionaste backspace");
-        document.getElementById(currSelectedTile).innerHTML = "";
-        console.log(indexGuessing);
-        recorreTecla(-1);
+        // console.log("Presionaste backspace");
+        borraLetra();
     }
     else if(teclaPresionada === 'Enter'){
-        console.log("Presionaste enter");
+        // console.log("Presionaste enter");
         checkGuessing();
     }
-    console.log(guessing + " " + indexGuessing);
+    // console.log(guessing + " " + indexGuessing);
 });
 
 
@@ -123,6 +125,12 @@ function agregaLetra(letra){
     AddToGuessing(x[0]);
     document.getElementById(currSelectedTile).innerHTML = x;
     recorreTecla(1);
+}
+
+function borraLetra()
+{
+    document.getElementById(currSelectedTile).innerHTML = "";
+    recorreTecla(-1);
 }
 
 //Recorre la casilla dependiendo si se agrega o se quita letra
@@ -174,7 +182,7 @@ function checkGuessing()
     if(indexGuessing >= 4 && guessing.includes("-") == false && wordsSet.has(guessing.join("")) == true)
     {
         //Do someting
-        console.log("Verificando palabra");
+        // console.log("Verificando palabra");
         //Recorremos cada una de las letras de la palabra
         var classTile = "row" + currentRow;
         var elements = document.getElementsByClassName(classTile);
@@ -192,6 +200,9 @@ function checkGuessing()
                 colores[i] = "green";
                 //Le quitamosuno a la cantidad de veces que se repite
                 tempGuessWordMap.set(guessing[i], tempGuessWordMap.get(guessing[i]) - 1);
+                //Cambiamos el color de la letra en el mapa
+                teclado.set(guessing[i], "green");
+                document.getElementById(guessing[i]).style.backgroundColor = "green";
             }
         }
 
@@ -205,6 +216,17 @@ function checkGuessing()
                 colores[i] = "yellow";
                 //Le quitamos uno a la cantidad de veces que se repite
                 tempGuessWordMap.set(guessing[i], tempGuessWordMap.get(guessing[i]) - 1);
+                if(teclado.get(guessing[i]) != "green"){
+                    teclado.set(guessing[i], "yellow");
+                    document.getElementById(guessing[i]).style.backgroundColor = "yellow";
+                }
+            }
+            else{
+                //Cambiamos el color de la letra del teclado a negro
+                if(teclado.get(guessing[i]) != "green" && teclado.get(guessing[i]) != "yellow"){
+                    teclado.set(guessing[i], "black");
+                    document.getElementById(guessing[i]).style.backgroundColor = "black";
+                }
             }
         }
 
@@ -217,6 +239,7 @@ function checkGuessing()
                 //Esperamos un momento para aplicar el color
                 setTimeout(function () {
                     elements[index].style.backgroundColor = colores[index];
+                    elements[index].style.color = "white";
                 },400);
                 
               },i* 500); // Multiplica i por 1000 para obtener segundos de espera crecientes
@@ -265,5 +288,17 @@ function checkGuessing()
                 elements[i].style.animation="";
             }
         },300);
+    }
+}
+
+
+//Teclado
+//Inicializa teclado
+function initKeyboard(){
+    //Agrega cada tecla en el mapa
+    for(var i = 0; i < 26; i++)
+    {
+        var letra = String.fromCharCode(65 + i);
+        teclado.set(letra, 'gray');
     }
 }
