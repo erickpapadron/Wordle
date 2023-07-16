@@ -233,7 +233,7 @@ function checkGuessing()
             //Si es a 4 y además no adivinó la palabra, entonces pierde
             if(currentRow == 5)
             {
-                alert("Perdiste");
+                console.log("Perdiste");
             }
         }
         //Saltamos a la siguiente fila
