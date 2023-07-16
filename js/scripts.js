@@ -5,7 +5,10 @@ var guessing = ['-','-','-','-', '-'];
 var guessWord = "ARBOL";
 var words = [];
 var wordsSet = new Set();
+let mapGuessWord = new Map();
 
+
+// Inicializa la partida
 function inicializaGame()
 {
     guardaPalabras();
@@ -14,6 +17,19 @@ function inicializaGame()
     //Elige una palabra aleatoria del arreglo, numero entre 0 y el tamaño del arreglo
     var random = Math.floor(Math.random() * words.length);
     guessWord = words[random];
+
+    //Inicializamos el mapa con la palabra a adivinar
+    for(var i = 0; i < guessWord.length; i++)
+    {
+        if(mapGuessWord.has(guessWord[i]))
+        {
+            mapGuessWord.set(guessWord[i], mapGuessWord.get(guessWord[i]) + 1);
+        }
+        else
+        {
+            mapGuessWord.set(guessWord[i], 1);
+        }
+    }
     console.log(guessWord);
 }
 
@@ -49,6 +65,7 @@ function guardaPalabras()
     words = Array.from(wordsSet);
 }
 
+//Alimina los acentos de las palabras para posteriormente almacenarlas
 function eliminarAcentos(cadena) {
     var mapaAcentos = {
       'á': 'a',
@@ -68,7 +85,7 @@ function eliminarAcentos(cadena) {
     });
   }
   
-
+//Selecciona la casilla y le cambia el color del borde
 function selectTile(tileId){
     if(currentRow == tileId[0]){
         indexGuessing = parseInt(tileId[1]);
@@ -100,6 +117,7 @@ document.addEventListener('keydown', function(event) {
 });
 
 
+// Agrega la letra a la casilla seleccionada
 function agregaLetra(letra){
     x = letra.toUpperCase();
     AddToGuessing(x[0]);
@@ -107,6 +125,7 @@ function agregaLetra(letra){
     recorreTecla(1);
 }
 
+//Recorre la casilla dependiendo si se agrega o se quita letra
 function recorreTecla(dx){
     if(currSelectedTile[1] != '4' && dx == 1)
     {
@@ -123,6 +142,7 @@ function recorreTecla(dx){
     }
 }
 
+//Agrega la letra a la palabra que se está adivinando
 function AddToGuessing(letra)
 {
     if(indexGuessing <= 4){
@@ -132,6 +152,7 @@ function AddToGuessing(letra)
     }
 }
 
+//Quita la letra de la palabra que se está adivinando
 function QuitToGuessing()
 {
     if(indexGuessing >= 0){
@@ -139,9 +160,16 @@ function QuitToGuessing()
     }
 }
 
-
+//Verifica si la palabra es correcta
 function checkGuessing()
 {
+    var tempGuessWordMap = new Map();
+    //Copiamos el mapa de la palabra a adivinar
+    for(var [key, value] of mapGuessWord)
+    {
+        tempGuessWordMap.set(key, value);
+    }
+
     //Verifica si la longitud de la palabra es la correcta además verifica que la palabra exista en el
     if(indexGuessing >= 4 && guessing.includes("-") == false && wordsSet.has(guessing.join("")) == true)
     {
@@ -151,69 +179,41 @@ function checkGuessing()
         var classTile = "row" + currentRow;
         var elements = document.getElementsByClassName(classTile);
         //Mapa donde almacenamos la cantidad de veces que se repite cada letra
-        var tempMap = new Map();
         //Primero colocamos las verdes
+        //Almacenams los colores para después aplicarlos y cambiarlos según corresponda
+        var colores = ["gray", "gray", "gray", "gray", "gray"];
+
+        //Verificamos los verdes (aciertos)
         for(var i = 0; i<=4; i++)
         {
-            //Ya tiene agregada esta letra
-            if(tempMap.has(guessing[i]))
-            {
-                //Le sumamos uno a la cantidad de veces que se repite
-                tempMap.set(guessing[i], tempMap.get(guessing[i]) + 1);
-            }
-            else{
-                //Agregamos la letra al mapa
-                tempMap.set(guessing[i], 1);
-            }
             if(guessing[i] == guessWord[i])
             {
                 //Si la letra es correcta la pintamos de verde
-                elements[i].style.backgroundColor = "green";
-            }
-            else{
-                //Si la letra es incorrecta, pero existe en la palabra y no sobrepasa la cantidad de veces que se repite la pintamos de amarillo
-                if(guessWord.includes(guessing[i]) && tempMap.get(guessing[i]) <= guessWord.split(guessing[i]).length - 1)
-                {
-                    elements[i].style.backgroundColor = "yellow";
-                }
-                else{
-                    //Si la letra no existe en la palabra la pintamos de gris
-                    elements[i].style.backgroundColor = "gray";
-                }
+                colores[i] = "green";
+                //Le quitamosuno a la cantidad de veces que se repite
+                tempGuessWordMap.set(guessing[i], tempGuessWordMap.get(guessing[i]) - 1);
             }
         }
-        tempMap.clear();
-        //Recorrido inverso
-        for(var i = 4; i>=0; i--)
+
+        //Verificamos los amarillos (casi aciertos)
+        for(var i = 0; i<=4; i++)
         {
-            //Ya tiene agregada esta letra
-            if(tempMap.has(guessing[i]))
+            //Si la letra no es correcta, pero existe en la palabra y no sobrepasa la cantidad de veces que se repite
+            if(guessing[i] != guessWord[i] && tempGuessWordMap.has(guessing[i]) && tempGuessWordMap.get(guessing[i]) > 0)
             {
-                //Le sumamos uno a la cantidad de veces que se repite
-                tempMap.set(guessing[i], tempMap.get(guessing[i]) + 1);
-            }
-            else{
-                //Agregamos la letra al mapa
-                tempMap.set(guessing[i], 1);
-            }
-            if(guessing[i] == guessWord[i])
-            {
-                //Si la letra es correcta la pintamos de verde
-                elements[i].style.backgroundColor = "green";
-            }
-            else{
-                //Si la letra es incorrecta, pero existe en la palabra y no sobrepasa la cantidad de veces que se repite la pintamos de amarillo
-                if(guessWord.includes(guessing[i]) && tempMap.get(guessing[i]) <= guessWord.split(guessing[i]).length - 1)
-                {
-                    elements[i].style.backgroundColor = "yellow";
-                }
-                else{
-                    //Si la letra no existe en la palabra la pintamos de gris
-                    elements[i].style.backgroundColor = "gray";
-                }
+                //Pintamos la letra de amarillo
+                colores[i] = "yellow";
+                //Le quitamos uno a la cantidad de veces que se repite
+                tempGuessWordMap.set(guessing[i], tempGuessWordMap.get(guessing[i]) - 1);
             }
         }
-        //Verificamos si ya se termino el juego
+
+        //Pintamos cada una de las celdas según el color que corresponda en el arreglo
+        for(var i = 0; i<=4; i++)
+        {
+            elements[i].style.backgroundColor = colores[i];
+        }
+
         //Adivinó la palabra
         if(guessWord == guessing.join(""))
         {
