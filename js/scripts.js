@@ -179,11 +179,11 @@ function checkGuessing()
     }
 
     //Verifica si la longitud de la palabra es la correcta además verifica que la palabra exista en el
-    if(indexGuessing >= 4 && guessing.includes("-") == false && wordsSet.has(guessing.join("")) == true)
+    if(guessing.includes("-") == false && wordsSet.has(guessing.join("")) == true)
     {
         //Do someting
         // console.log("Verificando palabra");
-        //Recorremos cada una de las letras de la palabra
+        //Recorremos vevecada una de las letras de la palabra
         var classTile = "row" + currentRow;
         var elements = document.getElementsByClassName(classTile);
         //Mapa donde almacenamos la cantidad de veces que se repite cada letra
